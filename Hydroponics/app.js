@@ -1,8 +1,11 @@
 const express = require('express')
 const app = express()
+var session = require('express-session')
 const mustacheExpress = require("mustache-express")
 const bodyParser = require("body-parser")
 const PORT = 3000
+// importing bcryptjs 
+var bcrypt = require('bcryptjs');
 
 // initializing pg promise
 const pgp = require('pg-promise')()
@@ -20,6 +23,13 @@ app.set("views", "./views")
 app.set("view engine", "mustache")
 //setup use for body parser, this is imporant for passing data from html to server
 app.use(bodyParser.urlencoded({ extended: false }))
+
+// initialize a session 
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true
+}))
 
 //Adding section to the list
 app.get("/", (req, res) => {
@@ -53,6 +63,51 @@ app.post('/delete', (req, res) => {
             res.redirect('delete')
         })
 })
+
+//Registration Part
+
+app.get('/register', (req, res) => {
+    res.render('register')
+})
+
+app.post('/register', (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
+    bcrypt.genSalt(10, function (error, hash) {
+        if (!error) {
+            //insert into the database
+            db.none('INSERT INTO users(username, password) Values($1, $2)', [username, hash])
+                .then(() => {
+                    res.redirect('login')
+                })
+        }
+    })
+
+})
+// Login pages
+app.get('/login', (req, res) => {
+    res.render('login')
+})
+
+app.post('/login', (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
+    db.one('SELECT user_id, username, password FROM users WHERE username = $1', [username])
+        .then((user) => {
+            bcrypt.compare(password, user.password, function (error, result) {
+                if (result) {
+                    if (req.session) {
+                        req.session.userId = user.user_id
+                    }
+                    res.redirect('index')
+                } else {
+                    res.send('NOT AUTHENTICATED')
+                }
+            })
+        })
+})
+
+//
 
 app.listen(PORT, () => {
     console.log("Server is running")
