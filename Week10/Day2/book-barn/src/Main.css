@@ -1,0 +1,13 @@
+#mainContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#card {
+    background-color: rgb(231, 231, 231);
+    padding: 10px;
+    margin: 10px;
+}
+
