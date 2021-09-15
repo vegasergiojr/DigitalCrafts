@@ -1,0 +1,32 @@
+
+#main-container {
+    display: flex;
+    flex-direction: column;
+}
+#main-container input {
+    margin-bottom: 10px;
+}
+#main-container button {
+    margin-bottom: 10px;
+    width: 200px;
+    height: 100px;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 2em;
+    border-radius: 4px;
+}
+#add {
+    background-color: lime;
+}
+#subtract {
+    background-color: red;
+}
+#main-container input {
+    width: 150px;
+    height: 100px;
+    background-color: black;
+    color: lime;
+    text-align: center;
+}

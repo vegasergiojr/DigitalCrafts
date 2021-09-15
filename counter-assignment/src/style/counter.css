@@ -1,0 +1,23 @@
+
+#box-one {
+    width: 480px;
+    height: auto;
+    text-align: center;
+}
+#box-one button {
+    width: 200px;
+    height: 100px;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 5em;
+    border-radius: 4px;
+}
+
+#add {
+    background-color: lime;
+}
+#subtract {
+    background-color: red;
+}

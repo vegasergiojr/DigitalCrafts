@@ -1,0 +1,11 @@
+
+#displayCounter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 150px;
+    height: 100px;
+    background-color: black;
+    color: lime;
+    text-align: center;
+}
